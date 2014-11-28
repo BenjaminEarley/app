@@ -2,70 +2,52 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\pre-dexed\debug\classes-a838df1ea3fb57af68d9e5dae702dbd1e6c13b7a.jar"
-        jar="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-f70e040972f0ed3910a95db6f670e204aa79ba87.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="7d2525cba8ed61fff102977caed964fc22061e34"/>
+        revision="21.1.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\classes-f1d3a1b989bfeb717a258f0d1f22a00e49e35fad.jar"
-        jar="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-2ae9107836dc204042f84d604a7b1e7e953f0802.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.2\classes.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
+        revision="21.1.1"
+        sha1="b017100da14f9c158c9f5f2f508333c224b24a7c"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\classes-975b9e9e993fb2b7f33fe3afb7ce6f82e193cdfd.jar"
-        jar="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-77fe2cfb11e24890589b81b5791b010e18c0e21b.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\classes.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="7d2525cba8ed61fff102977caed964fc22061e34"/>
+        revision="21.1.1"
+        sha1="61965ae058916e6a57950dd61b0164dc866af19a"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\classes-ca0d01b4535b830c22153672d587ee68e89cf90d.jar"
-        jar="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-c9ee63daf7b2f2a5e076e48d8fe19a2a96993bf7.jar"
+        jar="D:\Development\Android Development\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="6c6b497aa9e3aadbaabf975379e7914fa9e65523"/>
+        revision="21.1.1"
+        sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-8fcc347cea240ace114dd222836bbc1c3c29fba3.jar"
-        jar="D:\Development\Android Development\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-73b4416415b7214140acbd61823d8954b9ddead1.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\classes.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e"/>
+        revision="21.1.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-f413982204e69313270fe95a7140229f197f0cad.jar"
-        jar="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-167c60d018d198c7899f1cf77dae802fa9cca1bc.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.2\classes.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
+        revision="21.1.1"
+        sha1="7ae2d38807a43b2f2185ff4089a92c790b579e54"/>
     <item
-        dex="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\pre-dexed\debug\classes-216c0404fddfa2c2aa63029b41b0763425aaf437.jar"
-        jar="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-0afbb338ebe68da2f9c52971632309ce36163a66.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\libs\internal_impl-21.0.2.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2"/>
+        revision="21.1.1"
+        sha1="9346da9fb778af9e451211bbc3541daced174ba7"/>
     <item
-        dex="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\pre-dexed\debug\classes-4d4c27a4773a41f3a060ec466b8c92af5d7f097d.jar"
-        jar="C:\Users\Benjamin\AndroidStudioProjects\RecyclerView\RecyclerView\Application\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-fb8615476bb5f4e1bd29ecf0aeec04bd9e30e2ca.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.2\classes.jar"
         jumboMode="false"
-        revision="21.0.0"
-        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2"/>
-    <item
-        dex="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\pre-dexed\debug\classes-a92628b3e6a60a8d58695ba6357241c38444292d.jar"
-        jar="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.0.0"
-        sha1="686344a780033e4ba22b926cd225f8d4941247e6"/>
-    <item
-        dex="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-6f1dff666180a16bfc9e3838bc0ec734643c67ae.jar"
-        jar="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
-        jumboMode="false"
-        revision="21.0.0"
-        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0"/>
-    <item
-        dex="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\pre-dexed\debug\classes-68e15cd0a8a9f5b8d50ea70898775d88eaadd97d.jar"
-        jar="C:\Users\Benjamin\Documents\GitHub\app\app\Application\build\intermediates\exploded-aar\com.android.support\gridlayout-v7\21.0.0\classes.jar"
-        jumboMode="false"
-        revision="21.0.0"
-        sha1="6c6b497aa9e3aadbaabf975379e7914fa9e65523"/>
+        revision="21.1.1"
+        sha1="4796f18d3750bf2bfa078407a94a7f9db35b440d"/>
 
 </pre-dex-items>
