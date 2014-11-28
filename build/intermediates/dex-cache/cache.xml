@@ -32,6 +32,12 @@
         revision="21.1.1"
         sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3"/>
     <item
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-9f8ddb152ccefebf55541e511d10ba71475cd7fa.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.shamanland\fab\0.0.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="e388595587aab9cb9f919f90de90b1831db908f5"/>
+    <item
         dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-167c60d018d198c7899f1cf77dae802fa9cca1bc.jar"
         jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.2\classes.jar"
         jumboMode="false"

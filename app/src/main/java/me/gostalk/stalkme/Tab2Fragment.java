@@ -6,8 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-public class Tab2Fragment extends Fragment implements FloatingActionButton.OnCheckedChangeListener  {
+import com.shamanland.fab.FloatingActionButton;
+import com.shamanland.fab.ShowHideOnScroll;
+
+public class Tab2Fragment extends Fragment {
 
     private final static String TAG = "FloatingActionButtonBasicFragment";
 
@@ -19,20 +23,10 @@ public class Tab2Fragment extends Fragment implements FloatingActionButton.OnChe
 
         // Make this {@link Fragment} listen for changes in both FABs.
         FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab_1);
-        fab1.setOnCheckedChangeListener(this);
+        ListView listView = (ListView) rootView.findViewById(R.id.listView);
+        listView.setOnTouchListener(new ShowHideOnScroll(fab1));
+
         return rootView;
     }
 
-
-    @Override
-    public void onCheckedChanged(FloatingActionButton fabView, boolean isChecked) {
-        // When a FAB is toggled, log the action.
-        switch (fabView.getId()){
-            case R.id.fab_1:
-               // Log.d(TAG, String.format("FAB 1 was %s.", isChecked ? "checked" : "unchecked"));
-                break;
-            default:
-                break;
-        }
-    }
 }
