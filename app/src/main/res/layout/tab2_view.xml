@@ -8,10 +8,10 @@
     tools:context=".DeviceFragment"
     android:background="#e5e5e5">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <com.shamanland.fab.FloatingActionButton
         android:layout_width="wrap_content"
