@@ -1,10 +1,12 @@
 package Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import me.gostalk.stalkme.R;
 
@@ -15,17 +17,29 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     private static final String TAG = "CustomAdapter";
 
     private String[] mDataSet;
+    private Context mContext;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
      * Provide a reference to the type of views that you are using (custom viewholder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTextView;
 
-        public ViewHolder(View v) {
-            super(v);
-            mTextView = (TextView) v.findViewById(R.id.textView);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            mTextView = (TextView) itemView.findViewById(R.id.textView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(
+                            mContext,
+                            "onItemClick - " + getPosition() + " - "
+                                    + mTextView.getText().toString() + " - "
+                                    + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         public TextView getmTextView() {
@@ -38,8 +52,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomRecyclerAdapter(String[] dataSet) {
+    public CustomRecyclerAdapter(String[] dataSet, Context context) {
         mDataSet = dataSet;
+        mContext = context;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -48,7 +63,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.notifications_row_item, viewGroup, false);
+                .inflate(R.layout.notifications_row_item_2, viewGroup, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;

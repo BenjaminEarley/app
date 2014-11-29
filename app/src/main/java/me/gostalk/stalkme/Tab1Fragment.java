@@ -43,7 +43,7 @@ public class Tab1Fragment extends Fragment  {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CustomRecyclerAdapter(mDataset);
+        mAdapter = new CustomRecyclerAdapter(mDataset, getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
