@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.shamanland.fab.FloatingActionButton;
 import com.shamanland.fab.ShowHideOnScroll;
 
-import Adapters.CustomRecyclerAdapter;
+import Adapters.CustomRecyclerAdapter2;
 
 public class Tab2Fragment extends Fragment {
 
@@ -52,7 +52,7 @@ public class Tab2Fragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CustomRecyclerAdapter(mDataset);
+        mAdapter = new CustomRecyclerAdapter2(mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -72,7 +72,7 @@ public class Tab2Fragment extends Fragment {
     private void initDataset() {
         mDataset = new String[60];
         for (int i=0; i < 60; i++) {
-            mDataset[i] = "This is element #" + i;
+            mDataset[i] = "This is friend #" + i;
         }
     }
 }
