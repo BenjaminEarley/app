@@ -58,7 +58,7 @@ public class Tab1Fragment extends Fragment  {
     private void initDataset() {
         mDataset = new String[60];
         for (int i=0; i < 60; i++) {
-            mDataset[i] = "This is element #" + i;
+            mDataset[i] = "This is notification #" + i;
         }
     }
 }

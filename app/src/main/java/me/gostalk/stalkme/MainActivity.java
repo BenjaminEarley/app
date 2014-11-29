@@ -4,36 +4,60 @@ import Adapters.TabsPagerAdapter;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
+import java.util.HashMap;
 
-public class MainActivity extends FragmentActivity implements
-        ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
+    // Session Manager Class
+    SessionManager session;
+
+    String name, passwd;
+
+    // Tabs and Action Bar
     private ViewPager viewPager;
-    private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
+
     // Tab titles
-    private String[] tabs = { "Notifications", "Friends", "Map" };
+    private String[] tabs = {"Notifications", "Friends", "Map"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initilization
+        // Session class instance
+        session = new SessionManager(getApplicationContext());
+
+        /**
+         * Call this function whenever you want to check user login
+         * This will redirect user to LoginActivity is he is not
+         * logged in
+         * */
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        name = user.get(SessionManager.KEY_NAME);
+
+        // password
+        passwd = user.get(SessionManager.KEY_PASSWORD);
+
+        Toast.makeText(getApplicationContext(), name + passwd + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+
+
+        // Initilization of Main Activity
         viewPager = (ViewPager) findViewById(R.id.pager);
         actionBar = getActionBar();
-        mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+        TabsPagerAdapter mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
         viewPager.setAdapter(mAdapter);
         actionBar.setHomeButtonEnabled(false);
