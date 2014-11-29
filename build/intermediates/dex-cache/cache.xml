@@ -20,6 +20,12 @@
         revision="21.1.1"
         sha1="61965ae058916e6a57950dd61b0164dc866af19a"/>
     <item
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\classes-6564bc1283e548748c9d3bc7d038a860867cb992.jar"
+        jar="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\exploded-aar\com.google.android.gms\play-services\6.1.71\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="0f6d5c1ef2e982c3b7858408e3df389cf5d202da"/>
+    <item
         dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-c9ee63daf7b2f2a5e076e48d8fe19a2a96993bf7.jar"
         jar="D:\Development\Android Development\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
         jumboMode="false"

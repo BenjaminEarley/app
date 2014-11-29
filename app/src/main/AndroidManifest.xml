@@ -2,6 +2,10 @@
     <uses-sdk android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+
 
     <!-- GCM connects to Internet Services. -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -40,6 +44,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyDBnEyd2BksIomRBcLQdnB3KJRvYdD6ytQ"/>
 
     </application>
 
