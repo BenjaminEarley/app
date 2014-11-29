@@ -1,12 +1,15 @@
 package me.gostalk.stalkme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.shamanland.fab.FloatingActionButton;
 import com.shamanland.fab.ShowHideOnScroll;
@@ -34,7 +37,7 @@ public class Tab2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.tab2_view, container, false);
+        final View rootView = inflater.inflate(R.layout.tab2_view, container, false);
         rootView.setTag(TAG);
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView2);
@@ -54,6 +57,25 @@ public class Tab2Fragment extends Fragment {
         FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab_1);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView2);
         mRecyclerView.setOnTouchListener(new ShowHideOnScroll(fab1));
+
+        //Set floating button Click Listener
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity().getApplicationContext(), "test", Toast.LENGTH_LONG).show();
+                // Create new fragment and transaction
+                Fragment newFragment = new AddFriend();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.layout.add_friend, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+            }
+        });
 
         return rootView;
     }
