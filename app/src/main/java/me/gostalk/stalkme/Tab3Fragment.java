@@ -2,7 +2,8 @@ package me.gostalk.stalkme;
 
 import android.os.Bundle;
         import android.support.v4.app.Fragment;
-        import android.view.LayoutInflater;
+import android.view.InflateException;
+import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
 
@@ -16,11 +17,24 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class Tab3Fragment extends Fragment  {
 
     private GoogleMap map;
+    private static View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.tab3_view, container, false);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.tab3_view, container, false);
+        } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+        }
+        return view;
+
     }
 
     private GoogleMap getGoogleMap() {

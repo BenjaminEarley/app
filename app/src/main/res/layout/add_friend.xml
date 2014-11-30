@@ -4,10 +4,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/add_friend">
+
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search for a friend"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Search for a friend"
+        android:id="@+id/textView3" />
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
