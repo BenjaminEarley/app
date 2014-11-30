@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     String SENDER_ID = "gostalkme";
 
-    TextView mDisplay;
+
     GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
@@ -123,13 +123,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
-                registerInBackground();
+                registerInBackground register = new registerInBackground();
+                register.execute();
             }
         } else {
             Log.i("GCM", "No valid Google Play Services APK found.");
         }
     }
-    }
+
 
     @Override
     public void onResume() {
@@ -259,10 +260,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * Stores the registration ID and app versionCode in the application's
      * shared preferences.
      */
-    private void registerInBackground() {
-        new AsyncTask() {
+    private class registerInBackground extends AsyncTask<String,String,String> {
+
             @Override
-            protected String doInBackground(Void... params) {
+            protected String doInBackground(String... params) {
                 String msg = "";
                 try {
                     if (gcm == null) {
@@ -294,9 +295,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             protected void onPostExecute(String msg) {
-                mDisplay.append(msg + "\n");
+                //mDisplay.append(msg + "\n");
             }
-        }.execute(null, null, null);
         //...
     }
 
