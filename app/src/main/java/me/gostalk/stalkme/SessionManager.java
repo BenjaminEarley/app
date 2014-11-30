@@ -22,7 +22,7 @@ public class SessionManager {
     int PRIVATE_MODE = 0;
 
     // Sharedpref file name
-    private static final String PREF_NAME = "AndroidHivePref";
+    private static final String PREF_NAME = "AndroidStalkMePref";
 
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
@@ -89,7 +89,7 @@ public class SessionManager {
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
-        // user email id
+        // user password id
         user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
 
         // return user
