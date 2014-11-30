@@ -32,7 +32,8 @@
             android:contentDescription="@string/sample_text_image"
             android:layout_gravity="center"
             android:layout_marginTop="2dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"
+            android:transitionName="test" />
 
     </android.support.v7.widget.CardView>
 </LinearLayout>

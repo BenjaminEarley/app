@@ -1,5 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="me.gostalk.stalkme">
-    <uses-sdk android:minSdkVersion="16"
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.gostalk.stalkme" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
     <!-- GCM connects to Internet Services. -->
@@ -17,7 +21,6 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.androidhive.pushnotifications.permission.C2D_MESSAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!-- This app has permission to register and receive data message. -->
@@ -39,17 +42,20 @@
 
     <!-- Permission to read Google Services -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Maps API needs OpenGL ES 2.0. -->
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
 
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
         <activity
             android:name="me.gostalk.stalkme.MainActivity"
             android:label="@string/app_name"
@@ -63,7 +69,7 @@
 
         <!-- DashBoard / MainActivity -->
         <activity
-            android:name=".LoginActivity"
+            android:name="me.gostalk.stalkme.LoginActivity"
             android:label="User Login" >
         </activity>
 
@@ -72,8 +78,16 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDBnEyd2BksIomRBcLQdnB3KJRvYdD6ytQ"/>
+            android:value="AIzaSyDBnEyd2BksIomRBcLQdnB3KJRvYdD6ytQ" />
 
+        <activity
+            android:name="me.gostalk.stalkme.NotificationViewActivity"
+            android:label="@string/title_activity_notification_view"
+            android:parentActivityName="me.gostalk.stalkme.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.gostalk.stalkme.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

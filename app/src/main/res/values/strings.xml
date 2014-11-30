@@ -7,6 +7,7 @@
     <string name="sample_text_header">Sample card header</string>
     <string name="sample_text_footer">Sample card footer</string>
     <string name="sample_text_image">Sample image</string>
-
+    <string name="title_activity_notification_view">NotificationViewActivity</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

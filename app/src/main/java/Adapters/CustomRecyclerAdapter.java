@@ -1,13 +1,19 @@
 package Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import me.gostalk.stalkme.MainActivity;
+import me.gostalk.stalkme.NotificationViewActivity;
 import me.gostalk.stalkme.R;
 
 /**
@@ -25,10 +31,12 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTextView;
+        private final ImageView mImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.textView);
+            mImageView = (ImageView) itemView.findViewById(R.id.info_image);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -38,6 +46,14 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(mContext, NotificationViewActivity.class);
+                    ActivityOptionsCompat options =
+                            ActivityOptionsCompat.makeSceneTransitionAnimation((MainActivity) mContext,
+                                    mImageView,   // The view which starts the transition
+                                    "test"    // The transitionName of the view we’re transitioning to
+                            );
+                    intent.putExtra("EXTRA_MESSAGE",mTextView.getText());
+                    ActivityCompat.startActivity((MainActivity) mContext, intent, options.toBundle());
                 }
             });
         }
