@@ -36,7 +36,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private ActionBar actionBar;
 
     // Tab titles
-    private String[] tabs = {"Notifications", "Friends", "Map"};
+    //private String[] tabs = {"Notifications", "Friends", "Map"};
 
     public static final String EXTRA_MESSAGE = "message";
     public static final String PROPERTY_REG_ID = "registration_id";
@@ -86,11 +86,17 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        // Adding Tabs
-        for (String tab_name : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
-                    .setTabListener(this));
-        }
+
+
+
+
+        actionBar.addTab(actionBar.newTab()
+                    .setTabListener(this).setIcon(R.drawable.ic_mms_white_24dp));
+        actionBar.addTab(actionBar.newTab()
+                .setTabListener(this).setIcon(R.drawable.ic_person_white_24dp));
+        actionBar.addTab(actionBar.newTab()
+                .setTabListener(this).setIcon(R.drawable.ic_map_white_24dp));
+
 
         /**
          * on swiping the viewpager make respective tab selected

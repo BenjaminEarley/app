@@ -77,11 +77,12 @@ public class GcmIntentService extends IntentService {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_place_red_24px_mediumres)
                         .setContentTitle("GCM Notification")
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
-                        .setContentText(msg);
+                        .setContentText(msg)
+                        .setPriority(3);
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

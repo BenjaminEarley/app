@@ -38,6 +38,7 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+
                 }
             });
         }
