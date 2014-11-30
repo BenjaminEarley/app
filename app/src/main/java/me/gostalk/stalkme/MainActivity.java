@@ -16,13 +16,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -50,7 +47,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * Substitute you own sender ID here. This is the project number you got
      * from the API Console, as described in "Getting Started."
      */
-    String SENDER_ID = "gostalkme";
+    String SENDER_ID = "2792483275";
 
 
     GoogleCloudMessaging gcm;
@@ -264,7 +261,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             protected String doInBackground(String... params) {
-                String msg = "";
+                String msg = "                                    ";
                 try {
                     if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
@@ -295,7 +292,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
             @Override
             protected void onPostExecute(String msg) {
-                //mDisplay.append(msg + "\n");
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                System.out.println(msg);
             }
         //...
     }
@@ -326,6 +324,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
-        editor.commit();
+        editor.apply();
     }
 }
