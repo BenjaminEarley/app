@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".DeviceFragment"
-    android:background="#e5e5e5">
+    android:background="#e5e5e5"
+    android:id="@+id/tab2_view">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView2"

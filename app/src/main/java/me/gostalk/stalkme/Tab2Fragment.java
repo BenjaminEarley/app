@@ -1,14 +1,20 @@
 package me.gostalk.stalkme;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.shamanland.fab.FloatingActionButton;
@@ -34,7 +40,7 @@ public class Tab2Fragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.tab2_view, container, false);
@@ -48,37 +54,71 @@ public class Tab2Fragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CustomRecyclerAdapter2(mDataset);
+        mAdapter = new CustomRecyclerAdapter2(mDataset, getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
 
-        // Make this {@link Fragment} listen for changes in both FABs.
+        // Make this {@link Fragment} listen for changes FABs.
         FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab_1);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView2);
+        //Set floating button Click Listener
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity().getApplicationContext(), "test", Toast.LENGTH_LONG).show();
+            }
+        });
+
         mRecyclerView.setOnTouchListener(new ShowHideOnScroll(fab1));
 
         //Set floating button Click Listener
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity().getApplicationContext(), "test", Toast.LENGTH_LONG).show();
-                // Create new fragment and transaction
-                Fragment newFragment = new AddFriend();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.replace(R.layout.add_friend, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                View dialogLayout = inflater.inflate(R.layout.add_friend, container, false);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                SetDialog(dialogLayout);
+                builder.setView(dialogLayout);
+                builder.show();
             }
         });
 
         return rootView;
     }
+
+private void SetDialog(View view)
+{
+    ListView lstPeople = (ListView) view.findViewById(R.id.lstPeople);
+     String[] people = {"person1", "person2", "person3"};
+     ArrayAdapter<String> adapter;
+    EditText txtSearch = (EditText) view.findViewById(R.id.txtSearchPeople);
+
+    adapter =  new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, people);
+    lstPeople.setAdapter(adapter);
+   lstPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       @Override
+       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+           //TODO add friend when clicked
+       }
+   });
+
+    txtSearch.addTextChangedListener(new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+
+           //TODO implement Search/ update adapter
+
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    });
+
+
+
+}
 
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
