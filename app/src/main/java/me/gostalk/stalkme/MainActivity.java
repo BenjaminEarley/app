@@ -35,13 +35,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Session class instance
         session = new SessionManager(getApplicationContext());
 
-        /**
-         * Call this function whenever you want to check user login
-         * This will redirect user to LoginActivity is he is not
-         * logged in
-         * */
-        session.checkLogin();
-
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
 
@@ -50,8 +43,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // password
         passwd = user.get(SessionManager.KEY_PASSWORD);
-
-        Toast.makeText(getApplicationContext(), name + passwd + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
 
         // Initilization of Main Activity
@@ -89,6 +80,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        /**
+         * Call this function whenever you want to check user login
+         * This will redirect user to LoginActivity is he is not
+         * logged in
+         * */
+        session.checkLogin();
+
+        Toast.makeText(getApplicationContext(), name + passwd + session.isLoggedIn(), Toast.LENGTH_LONG).show();
     }
 
     @Override

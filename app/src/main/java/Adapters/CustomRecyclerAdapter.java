@@ -63,7 +63,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.notifications_row_item_2, viewGroup, false);
+                .inflate(R.layout.notifications_row_item, viewGroup, false);
 
         ViewHolder vh = new ViewHolder(v);
         return vh;
