@@ -23,13 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="22dp"
             android:id="@+id/textView"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:background="#F44336"
             android:text="Notification"
             android:textColor="@android:color/white"
             android:textSize="18dp" />
 
-        ,<!--<ImageView
+         <!--<ImageView
             android:id="@+id/info_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,13 +47,8 @@
             android:text="Location"
             android:textColor="#555555"
             android:textSize="18dp"
-<<<<<<< HEAD
             android:paddingTop="11dp"
             android:gravity="center_horizontal" />
-=======
-            android:paddingTop="25dp"
-            android:gravity="center_horizontal"/>
->>>>>>> origin/master
 </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
