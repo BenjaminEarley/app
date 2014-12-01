@@ -49,6 +49,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private ActionBar actionBar;
 
     public double longitude, latitude;
+    public String markerTitle;
 
     // Tab titles
     //private String[] tabs = {"Notifications", "Friends", "Map"};

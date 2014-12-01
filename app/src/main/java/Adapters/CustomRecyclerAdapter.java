@@ -66,6 +66,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                     MainActivity activity = (MainActivity)mContext;
                     activity.latitude = latitude[getPosition()];
                     activity.longitude = longitude[getPosition()];
+                    activity.markerTitle = mDataSet[getPosition()];
                     activity.swipeToMap();
                     /*Intent intent = new Intent(mContext, NotificationViewActivity.class);
                     ActivityOptionsCompat options =
