@@ -3,22 +3,24 @@ package me.gostalk.stalkme;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,14 +41,14 @@ public class LoginActivity extends Activity {
 
     RequestQueue requestQueue;
 
-    JSONObject _response;
-
     Boolean Confirmed = false;
 
     private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        requestQueue = Volley.newRequestQueue(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -87,37 +89,6 @@ public class LoginActivity extends Activity {
                     // username = test
                     // password = test
                     postLoginRegister(username, password, "login/");
-
-                    try {
-                        JSONObject code = _response.getJSONObject("meta").getJSONObject("code");
-                        if ( Integer.getInteger(code.toString()) == 200 ) {
-                            Toast.makeText(getApplicationContext(),"Logged IN!", Toast.LENGTH_LONG).show();
-                            Confirmed = true;
-                        }
-                    } catch (Exception ex) {
-                        Confirmed = false;
-                        ex.printStackTrace();
-                    }
-
-
-                    if (Confirmed) {
-
-                        // Creating user login session
-                        // For testing i am stroing name, email as follow
-                        // Use user real data
-                        session.createLoginSession(username, password);
-
-
-
-                        // Staring MainActivity
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
-                        finish();
-
-                    } else {
-                        // username / password doesn't match
-                        alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
-                    }
                 } else {
                     // user didn't entered username or password
                     // Show alert asking him to enter the details
@@ -128,39 +99,79 @@ public class LoginActivity extends Activity {
         });
     }
 
+    private void login(String stringResponse, String username, String passhash) {
+        try {
+            JSONObject response = new JSONObject(stringResponse);
+            Log.d("JsonTest", response.toString());
+            String code = response.getJSONObject("meta").getString("code");
+            Log.d("JsonTest", code);
+
+            if (code.equals("200")) {
+                Toast.makeText(getApplicationContext(), "Logged IN!", Toast.LENGTH_LONG).show();
+                Confirmed = true;
+            }
+        } catch (Exception ex) {
+            Confirmed = false;
+            ex.printStackTrace();
+        }
+
+        if (Confirmed) {
+            // Creating user login session
+            // For testing i am storing name, email as follow
+            // Use user real data
+            session.createLoginSession(username, passhash);
+
+            // Staring MainActivity
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            finish();
+        } else {
+            // username / password doesn't match
+            alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
+        }
+    }
+
     /**
      * @param username, user's username
      * @param passhash, user's password hash
      * @param uri,      either use login/ or register/ depending on the action you want to use
      */
     private void postLoginRegister(final String username, final String passhash, final String uri) {
-        final String URL = API_URL + uri;
+        String URL = API_URL + uri;
+        //String URL = "https://5rjo0j0puhq4.runscope.net";
 
-        JsonObjectRequest jsLoginPostRequest = new JsonObjectRequest(Request.Method.POST, URL, null, new Response.Listener<JSONObject>() {
+        try {
+            URL += "?username=" + URLEncoder.encode(username, "UTF-8");
+            URL += "&passhash=" + URLEncoder.encode(passhash, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-            @Override
-            public void onResponse(JSONObject response) {
-                _response = response;
-            }
-        }, new Response.ErrorListener() {
+        Log.d("JsonTest", URL);
 
+        StringRequest jsLoginPostRequest = new StringRequest(
+                Method.POST,
+                URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        login(response, username, passhash);
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
+                Log.d("JsonTest", "Never got back?");
 
             }
         }) {
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("username", username);
-                params.put("passhash", passhash);
-
-                return params;
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("User-agent", "StalkMeAgent");
+                return headers;
             }
         };
-
         requestQueue.add(jsLoginPostRequest);
-
     }
 }
