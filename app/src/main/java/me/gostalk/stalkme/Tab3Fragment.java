@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Tab3Fragment extends Fragment {
@@ -62,9 +63,9 @@ public class Tab3Fragment extends Fragment {
                 e.printStackTrace();
 
             }
-            CenterMap();
-            //AddMarkers();
-            // CenterMapOnMarkers();
+            //CenterMap();
+            AddMarkers();
+            CenterMapOnMarkers();
         } catch (InflateException e) {
 
 // map is already there, just return view as it is
@@ -107,12 +108,14 @@ public class Tab3Fragment extends Fragment {
         MainActivity activity = (MainActivity)getActivity();
         Double lat = activity.latitude;
         Double lng = activity.longitude;
+      //  String title = activity.marker
 
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(lat, lng), 13));
 
         map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                        // .title(title)
                 .position(new LatLng(lat, lng)));
 
         activity.latitude = 0D;
@@ -130,12 +133,53 @@ public class Tab3Fragment extends Fragment {
 
     private void AddMarkers()
     {
+        MainActivity activity = (MainActivity)getActivity();
+        Double lat = activity.latitude;
+        Double myLat = 0D;
+        Double myLng = 0D;
+        Double lng = activity.longitude;
+        String title = activity.markerTitle;
+
+        SessionManager session = new SessionManager(getActivity());
+
+        session.checkLogin();
+
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+       String name = user.get(SessionManager.KEY_NAME);
+
+        // password
+       String passwd = user.get(SessionManager.KEY_PASSWORD);
+
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+          Criteria criteria = new Criteria();
+
+           Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+         if (location != null)
+         {
+             myLat = location.getLatitude();
+             myLng = location.getLongitude();
+         }
+
         markers = new ArrayList<Marker>();
 
         Marker mark = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
-                .position(new LatLng(41.889, -87.622)));
+                .title(title)
+                .position(new LatLng(lat, lng)));
+
         markers.add(mark);
+
+        Marker mark2 = map.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                .title(name)
+                .visible(false)
+                .position(new LatLng(myLat, myLng)));
+        markers.add(mark2);
+
     }
 
     private void CenterMapOnMarkers()
