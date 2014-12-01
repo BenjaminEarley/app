@@ -37,6 +37,7 @@ public class Tab2Fragment extends Fragment {
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
         initDataset();
+        //searchAndInitDataset("7");
     }
 
     @Override
@@ -129,5 +130,11 @@ private void SetDialog(View view)
         for (int i=0; i < 60; i++) {
             mDataset[i] = "This is friend #" + i;
         }
+    }
+
+    private void searchAndInitDataset(String search) {
+        mDataset = new String[1];
+        //if(mDataset[i].toLowerCase().contains(search.toLowerCase()))
+            mDataset[0] = "This is friend #" + 7;
     }
 }

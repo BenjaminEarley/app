@@ -66,7 +66,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
     Context context;
-    RequestQueue requestQueue;
+    //RequestQueue requestQueue;
 
     String regid;
 
@@ -75,7 +75,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestQueue = Volley.newRequestQueue(this);
+        //requestQueue = Volley.newRequestQueue(this);
 
         context = getApplicationContext();
 
@@ -349,7 +349,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         editor.apply();
     }
 
-    private void getTestData() {
+    /*private void getTestData() {
         final String URL = API_URL + "test/";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
 
@@ -367,6 +367,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         });
 
         requestQueue.add(jsObjRequest);
-    }
+    }*/
 
 }

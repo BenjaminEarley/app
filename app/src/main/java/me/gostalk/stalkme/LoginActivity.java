@@ -39,7 +39,9 @@ public class LoginActivity extends Activity {
 
     RequestQueue requestQueue;
 
-    String _response;
+    JSONObject _response;
+
+    Boolean Confirmed = false;
 
     private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
 
@@ -47,7 +49,6 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        requestQueue = Volley.newRequestQueue(this);
 
 
         // Session Manager
@@ -87,7 +88,19 @@ public class LoginActivity extends Activity {
                     // password = test
                     postLoginRegister(username, password, "login/");
 
-                    if (_response.equals("true")) {
+                    try {
+                        JSONObject code = _response.getJSONObject("meta").getJSONObject("code");
+                        if ( Integer.getInteger(code.toString()) == 200 ) {
+                            Toast.makeText(getApplicationContext(),"Logged IN!", Toast.LENGTH_LONG).show();
+                            Confirmed = true;
+                        }
+                    } catch (Exception ex) {
+                        Confirmed = false;
+                        ex.printStackTrace();
+                    }
+
+
+                    if (Confirmed) {
 
                         // Creating user login session
                         // For testing i am stroing name, email as follow
@@ -127,7 +140,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onResponse(JSONObject response) {
-                _response = response.toString();
+                _response = response;
             }
         }, new Response.ErrorListener() {
 
@@ -146,6 +159,8 @@ public class LoginActivity extends Activity {
                 return params;
             }
         };
+
+        requestQueue.add(jsLoginPostRequest);
 
     }
 }
