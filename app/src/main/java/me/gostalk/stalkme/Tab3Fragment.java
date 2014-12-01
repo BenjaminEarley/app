@@ -5,6 +5,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.InflateException;
@@ -20,17 +21,26 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Tab3Fragment extends Fragment {
 
     private GoogleMap map;
     private MapView mapView;
     private static View view;
+    private List<Marker> markers;
+    //TODO set markers
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +69,9 @@ public class Tab3Fragment extends Fragment {
                 e.printStackTrace();
 
             }
-            CenterMap();
+          //  CenterMap();
+            AddMarkers();
+            CenterMapOnMarkers();
         } catch (InflateException e) {
 
 // map is already there, just return view as it is
@@ -109,5 +121,47 @@ public class Tab3Fragment extends Fragment {
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         }
+    }
+
+    private void AddMarkers()
+    {
+        markers = new ArrayList<Marker>();
+
+       Marker mark = map.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                .position(new LatLng(41.889, -87.622)));
+
+        Marker mark2 = map.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                .position(new LatLng(42.889, -87.622)));
+        markers.add(mark);
+        markers.add(mark2);
+    }
+
+    private void CenterMapOnMarkers()
+    {
+        CameraUpdate cu;
+        if (markers.size() > 1)
+        {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+            int width = getActivity().findViewById(R.id.pager).getWidth();
+            int height = (int)(getActivity().findViewById(R.id.pager).getHeight() * .75); //HACK
+            for (Marker marker : markers)
+            {
+                builder.include(marker.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+            int padding = 0; // offset from edges of the map in pixels
+            cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+        }
+        else
+        {
+            cu = CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 12F);
+        }
+
+        map.animateCamera(cu); // map.moveCamera(cu);
     }
 }
