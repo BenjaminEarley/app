@@ -89,7 +89,6 @@ public class Tab3Fragment extends Fragment {
 
 
     private void CenterMap() {
-        //map = getGoogleMap();
 
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
