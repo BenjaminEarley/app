@@ -39,6 +39,8 @@ public class LoginActivity extends Activity {
 
     RequestQueue requestQueue;
 
+    String _response;
+
     private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
 
     @Override
@@ -83,12 +85,15 @@ public class LoginActivity extends Activity {
                     // For testing puspose username, password is checked with sample data
                     // username = test
                     // password = test
+                    postLoginRegister(username, password, "login/");
                     if (username.equals("Benjamin") && password.equals("test")) {
 
                         // Creating user login session
                         // For testing i am stroing name, email as follow
                         // Use user real data
                         session.createLoginSession(username, password);
+
+
 
                         // Staring MainActivity
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
@@ -121,7 +126,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+                _response = response.toString();
             }
         }, new Response.ErrorListener() {
 
