@@ -206,7 +206,7 @@ public class Tab3Fragment extends Fragment {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
             int width = getActivity().findViewById(R.id.pager).getWidth();
-            int height = (int)(getActivity().findViewById(R.id.pager).getHeight() * .75); //HACK
+            int height = (int)(getActivity().findViewById(R.id.pager).getHeight() * .60); //HACK
             for (Marker marker : markers)
             {
                 builder.include(marker.getPosition());
