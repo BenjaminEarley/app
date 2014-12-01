@@ -18,7 +18,9 @@ public class Tab1Fragment extends Fragment  {
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
-    Bitmap locationImage;
+    //Bitmap locationImage;
+    protected double[] longitude;
+    protected double[] latitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class Tab1Fragment extends Fragment  {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CustomRecyclerAdapter(locationImage, mDataset, getActivity());
+        mAdapter = new CustomRecyclerAdapter(longitude, latitude, mDataset, getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -59,8 +61,12 @@ public class Tab1Fragment extends Fragment  {
      */
     private void initDataset() {
         mDataset = new String[60];
+        latitude = new double[60];
+        longitude = new double[60];
         for (int i=0; i < 60; i++) {
             mDataset[i] = "This is notification #" + i;
+            latitude[i] = 121311.2323 + i;
+            longitude[i] = 5435345.345345 + i;
         }
     }
 }

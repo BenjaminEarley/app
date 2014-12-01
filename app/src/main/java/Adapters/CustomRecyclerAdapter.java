@@ -31,7 +31,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
     private String[] mDataSet;
     private Context mContext;
-    private Bitmap locationImage;
+    //private Bitmap locationImage;
+    private double[] longitude, latitude;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -39,15 +40,19 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView mTextView;
-        private final ImageView mImageView;
+        private final TextView mTextView2;
+        //private final ImageView mImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.textView);
-            mImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            mTextView2 = (TextView) itemView.findViewById(R.id.textView2);
+            //mImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            /*
             File root = mContext.getFilesDir();
             locationImage = BitmapFactory.decodeFile(root+"/location.PNG");
             mImageView.setImageBitmap(locationImage);
+            */
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -57,22 +62,25 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(mContext, NotificationViewActivity.class);
+                    /*Intent intent = new Intent(mContext, NotificationViewActivity.class);
                     ActivityOptionsCompat options =
                             ActivityOptionsCompat.makeSceneTransitionAnimation((MainActivity) mContext,
                                     mImageView,   // The view which starts the transition
                                     "test"    // The transitionName of the view we’re transitioning to
-                            );
-
-                    intent.putExtra("EXTRA_MESSAGE",mTextView.getText());
-                    intent.putExtra("EXTRA_BITMAP", getByteArray(locationImage));
-                    ActivityCompat.startActivity((MainActivity) mContext, intent, options.toBundle());
+                            );*/
+                    //intent.putExtra("EXTRA_MESSAGE",mTextView.getText());
+                    //intent.putExtra("EXTRA_BITMAP", getByteArray(locationImage));
+                    //ActivityCompat.startActivity((MainActivity) mContext, intent, options.toBundle());
                 }
             });
         }
 
         public TextView getmTextView() {
             return mTextView;
+        }
+
+        public TextView getmTextView2() {
+            return mTextView2;
         }
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
@@ -81,9 +89,11 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomRecyclerAdapter(Bitmap locationImage, String[] dataSet, Context context) {
+    public CustomRecyclerAdapter(double[] lo, double[] la, String[] dataSet, Context context) {
         mDataSet = dataSet;
         mContext = context;
+        longitude = lo;
+        latitude = la;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -107,6 +117,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         viewHolder.getmTextView().setText(mDataSet[position]);
+        viewHolder.getmTextView2().setText(String.valueOf(latitude[position]) + String.valueOf(longitude[position]));
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 

@@ -21,6 +21,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import me.gostalk.stalkme.MainActivity;
 import me.gostalk.stalkme.R;
 
 /**
@@ -66,6 +67,7 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
 
                     Toast.makeText(mContext,"Long:" + _longitude + " & Lat: " + _latitude, Toast.LENGTH_LONG).show();
+
                 }
             });
         }
