@@ -1,6 +1,9 @@
 package Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +15,9 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import me.gostalk.stalkme.R;
 
 /**
@@ -22,6 +28,8 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
 
     private String[] mDataSet;
     private Context mContext;
+    private GoogleMap _map;
+    private double _latitude, _longitude;
 
 
 
@@ -44,6 +52,25 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+                    GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+                        Bitmap bitmap;
+
+                        @Override
+                        public void onSnapshotReady(Bitmap snapshot) {
+                            // TODO Auto-generated method stub
+                            bitmap = snapshot;
+                            try {
+                                FileOutputStream out = new FileOutputStream(mContext.getFilesDir()+"/location.PNG");
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    _map.snapshot(callback);
+                    Toast.makeText(mContext,"Longitude: " + _longitude + "& Latitude: " + _latitude, Toast.LENGTH_LONG).show();
+
                 }
             });
         }
@@ -58,9 +85,13 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomRecyclerAdapter2(String[] dataSet, Context context) {
+    public CustomRecyclerAdapter2(double latitude, double logitude,GoogleMap map, String[] dataSet, Context context) {
         mDataSet = dataSet;
         mContext = context;
+        _map = map;
+        _latitude = latitude;
+        _longitude = logitude;
+
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -91,5 +122,13 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
     @Override
     public int getItemCount() {
         return mDataSet.length;
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mContext.getFilesDir()+"/location.PNG");
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        mContext.sendBroadcast(mediaScanIntent);
     }
 }

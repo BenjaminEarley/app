@@ -28,5 +28,10 @@
         android:focusable="false"
         android:cropToPadding="false" />
 
+    <com.google.android.gms.maps.MapView android:id="@+id/map_invisible"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible"/>
+
 
 </RelativeLayout>
