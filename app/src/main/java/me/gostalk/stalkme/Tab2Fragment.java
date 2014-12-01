@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.shamanland.fab.FloatingActionButton;
 import com.shamanland.fab.ShowHideOnScroll;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import Adapters.CustomRecyclerAdapter2;
 
@@ -34,9 +47,13 @@ public class Tab2Fragment extends Fragment {
     protected String[] mDataset;
     private static final String TAG = "RecyclerView2Fragment";
 
+    RequestQueue requestQueue;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestQueue = Volley.newRequestQueue(getActivity());
 
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
@@ -130,11 +147,59 @@ private void SetDialog(View view)
      * from a local content provider or remote server.
      */
     private void initDataset() {
-        mDataset = new String[60];
-        for (int i=0; i < 60; i++) {
-            mDataset[i] = "This is friend #" + i;
+        mDataset = new String[1];
+        mDataset[0] = "Loading...";
+
+        MainActivity activity = (MainActivity)getActivity();
+        String name = activity.name;
+        String passhash = activity.passwd;
+
+        String URL = "http://api.gostalk.me/relation/" + name;
+        try {
+            URL += "?" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf("IDK", e);
         }
+
+        StringRequest jsLoginPostRequest = new StringRequest( Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        renderLoadedData(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("LoginQuery", "Failed to login " + error);
+            }
+        });
+        requestQueue.add(jsLoginPostRequest);
+
     }
+
+    private void renderLoadedData(String stringResponse) {
+        try {
+            JSONObject response = new JSONObject(stringResponse);
+            String code = response.getJSONObject("meta").getString("code");
+            if (code.equals("200")) {
+                JSONArray people = response.getJSONArray("response");
+                mDataset = new String[people.length()];
+                for ( int i = 0; i < people.length(); i++ ) {
+                    JSONObject person = (JSONObject) people.get(i);
+                    mDataset[i] = person.getString("Username");
+                }
+            } else {
+                Log.e("Tab2", "Had trouble loading data");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        mAdapter = new CustomRecyclerAdapter2(mDataset, getActivity());
+        // Set CustomAdapter as the adapter for RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
 
     private void searchAndInitDataset(String search) {
         mDataset = new String[60];
