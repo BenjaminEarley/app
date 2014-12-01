@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -31,6 +32,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -66,12 +69,15 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
     Context context;
-    //RequestQueue requestQueue;
+
+    RequestQueue requestQueue;
 
     String regid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestQueue = Volley.newRequestQueue(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -90,6 +96,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // password
         passwd = user.get(SessionManager.KEY_PASSWORD);
+
+        session.checkLogin();
 
 
         // Initilization of Main Activity
@@ -295,7 +303,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 // so it can use GCM/HTTP or CCS to send messages to your app.
                 // The request to your server should be authenticated if your app
                 // is using accounts.
-                sendRegistrationIdToBackend();
+                sendRegistrationIdToBackend(regid);
 
                 // For this demo: we don't need to send it because the device
                 // will send upstream messages to a server that echo back the
@@ -328,9 +336,31 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * device sends upstream messages to a server that echoes back the message
      * using the 'from' address in the message.
      */
-    private void sendRegistrationIdToBackend() {
+    private void sendRegistrationIdToBackend(String regid) {
         // Your implementation here.
+        String REG_URL = "http://api.gostalk.me/user/" + this.name + "/register_gcm/" + regid;
+        try {
+            REG_URL += "?" + "passhash=" + URLEncoder.encode(this.passwd, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.wtf("Login", e);
+        }
+
+        StringRequest sendRegistration = new StringRequest( Request.Method.POST, REG_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Meh.. This is really just to submit it... I should confirm it though.
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("LoginQuery", "Failed to login " + error);
+            }
+        });
+        requestQueue.add(sendRegistration);
     }
+
+
 
     /**
      * Stores the registration ID and app versionCode in the application's
@@ -348,25 +378,4 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.apply();
     }
-
-    /*private void getTestData() {
-        final String URL = API_URL + "test/";
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
-        requestQueue.add(jsObjRequest);
-    }*/
-
 }
