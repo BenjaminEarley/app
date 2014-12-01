@@ -86,7 +86,8 @@ public class LoginActivity extends Activity {
                     // username = test
                     // password = test
                     postLoginRegister(username, password, "login/");
-                    if (username.equals("Benjamin") && password.equals("test")) {
+
+                    if (_response.equals("true")) {
 
                         // Creating user login session
                         // For testing i am stroing name, email as follow
