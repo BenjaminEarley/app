@@ -87,7 +87,7 @@ public class Tab3Fragment extends Fragment {
         super.onPause();
         map.setMyLocationEnabled(false);
     }
-    
+
     @Override
     public void onStop()
     {
@@ -186,6 +186,7 @@ public class Tab3Fragment extends Fragment {
                 .title(title)
                 .position(new LatLng(lat, lng)));
 
+        if (lat != 0D && lng != 0D)
         markers.add(mark);
 
         Marker mark2 = map.addMarker(new MarkerOptions()
@@ -216,7 +217,7 @@ public class Tab3Fragment extends Fragment {
         }
         else
         {
-            cu = CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 12F);
+            cu = CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 13F);
         }
 
         map.moveCamera(cu); // map.moveCamera(cu);
