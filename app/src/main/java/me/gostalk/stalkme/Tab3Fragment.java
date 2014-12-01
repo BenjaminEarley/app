@@ -5,22 +5,17 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,10 +24,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Tab3Fragment extends Fragment {
 
@@ -129,12 +121,10 @@ public class Tab3Fragment extends Fragment {
 
        Marker mark = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(new LatLng(41.889, -87.622)));
 
         Marker mark2 = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
-                .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
                 .position(new LatLng(42.889, -87.622)));
         markers.add(mark);
         markers.add(mark2);
@@ -162,6 +152,6 @@ public class Tab3Fragment extends Fragment {
             cu = CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 12F);
         }
 
-        map.animateCamera(cu); // map.moveCamera(cu);
+        map.moveCamera(cu); // map.moveCamera(cu);
     }
 }
