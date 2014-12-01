@@ -9,17 +9,24 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import me.gostalk.stalkme.MainActivity;
 import me.gostalk.stalkme.R;
@@ -60,14 +67,15 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
                     _latitude = location.getLatitude();
                     _longitude = location.getLongitude();
 
-                    Toast.makeText(
-                            mContext,
-                            "onItemClick - " + getPosition() + " - "
-                                    + mTextView.getText().toString() + " - "
-                                    + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+                    transmitLocation();
+                    //Toast.makeText(
+                    //        mContext,
+                    //        "onItemClick - " + getPosition() + " - "
+                    //                + mTextView.getText().toString() + " - "
+                    //                + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
 
-                    Toast.makeText(mContext,"Long:" + _longitude + " & Lat: " + _latitude, Toast.LENGTH_LONG).show();
-
+                    //Toast.makeText(mContext,"Long:" + _longitude + " & Lat: " + _latitude, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(mContext,"Long:" + _longitude + " & Lat: " + _latitude, Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -75,7 +83,40 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
         public TextView getmTextView() {
             return mTextView;
         }
+
+        private void transmitLocation() {
+            MainActivity activity = (MainActivity)mContext;
+
+            String name = activity.name;
+            String passhash = activity.passwd;
+
+            String URL = "http://api.gostalk.me/user/" + name + "/notify/" + mTextView.getText().toString();
+            try {
+                URL += "?" + "longitude=" + URLEncoder.encode(String.valueOf(_longitude), "UTF-8");
+                URL += "&" + "latitude=" + URLEncoder.encode(String.valueOf(_latitude), "UTF-8");
+                URL += "&" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                Log.wtf("IDK", e);
+            }
+
+            StringRequest jsLoginPostRequest = new StringRequest( Request.Method.GET, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(mContext,"Sent Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LoginQuery", "Failed to login " + error);
+                }
+            });
+            activity.requestQueue.add(jsLoginPostRequest);
+        }
     }
+
+
+
     // END_INCLUDE(recyclerViewSampleViewHolder)
     /**
      * Initialize the dataset of the Adapter.

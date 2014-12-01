@@ -62,6 +62,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+
+                    MainActivity activity = (MainActivity)mContext;
                     /*Intent intent = new Intent(mContext, NotificationViewActivity.class);
                     ActivityOptionsCompat options =
                             ActivityOptionsCompat.makeSceneTransitionAnimation((MainActivity) mContext,

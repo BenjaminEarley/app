@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     // Session Manager Class
     SessionManager session;
 
-    String name, passwd;
+    public String name, passwd;
 
     // Tabs and Action Bar
     private ViewPager viewPager;
@@ -70,7 +70,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     SharedPreferences prefs;
     Context context;
 
-    RequestQueue requestQueue;
+    public RequestQueue requestQueue;
 
     String regid;
 
@@ -88,6 +88,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         // Session class instance
         session = new SessionManager(context);
 
+        session.checkLogin();
+
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
 
@@ -96,8 +98,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // password
         passwd = user.get(SessionManager.KEY_PASSWORD);
-
-        session.checkLogin();
 
 
         // Initilization of Main Activity

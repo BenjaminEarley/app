@@ -54,10 +54,6 @@ public class GcmIntentService extends IntentService {
                 for (int i=0; i<5; i++) {
                     Log.i("GCM intent", "Working... " + (i + 1)
                             + "/5 @ " + SystemClock.elapsedRealtime());
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                    }
                 }
                 Log.i("GCM intent", "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
