@@ -1,12 +1,16 @@
 package Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import me.gostalk.stalkme.R;
 
@@ -18,6 +22,8 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
 
     private String[] mDataSet;
     private Context mContext;
+
+
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -38,7 +44,6 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
-
                 }
             });
         }
