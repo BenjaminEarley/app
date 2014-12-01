@@ -79,12 +79,27 @@ public class Tab3Fragment extends Fragment {
     public void onResume() {
         mapView.onResume();
         super.onResume();
+        map.setMyLocationEnabled(true);
+    }
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        map.setMyLocationEnabled(false);
+    }
+    
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        map.setMyLocationEnabled(false);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        map.setMyLocationEnabled(false);
     }
 
     @Override
@@ -163,7 +178,7 @@ public class Tab3Fragment extends Fragment {
              myLat = location.getLatitude();
              myLng = location.getLongitude();
          }
-
+        //locationManager.removeGpsStatusListener();
         markers = new ArrayList<Marker>();
 
         Marker mark = map.addMarker(new MarkerOptions()
@@ -190,7 +205,7 @@ public class Tab3Fragment extends Fragment {
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
             int width = getActivity().findViewById(R.id.pager).getWidth();
-            int height = (int)(getActivity().findViewById(R.id.pager).getHeight() * .75); //HACK
+            int height = (int)(getActivity().findViewById(R.id.pager).getHeight() * .7); //HACK
             for (Marker marker : markers)
             {
                 builder.include(marker.getPosition());
