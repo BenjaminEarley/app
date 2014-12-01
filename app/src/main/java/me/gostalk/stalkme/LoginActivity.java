@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
@@ -22,8 +21,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends Activity {
 
@@ -43,7 +40,7 @@ public class LoginActivity extends Activity {
 
     Boolean Confirmed = false;
 
-    private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
+    private final static String Login_URL = "http://api.gostalk.me/login/"; // All API calls go here
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +85,7 @@ public class LoginActivity extends Activity {
                     // For testing puspose username, password is checked with sample data
                     // username = test
                     // password = test
-                    postLoginRegister(username, password, "login/");
+                    postLogin(username, password, "login/");
                 } else {
                     // user didn't entered username or password
                     // Show alert asking him to enter the details
@@ -102,12 +99,8 @@ public class LoginActivity extends Activity {
     private void login(String stringResponse, String username, String passhash) {
         try {
             JSONObject response = new JSONObject(stringResponse);
-            Log.d("JsonTest", response.toString());
             String code = response.getJSONObject("meta").getString("code");
-            Log.d("JsonTest", code);
-
             if (code.equals("200")) {
-                Toast.makeText(getApplicationContext(), "Logged IN!", Toast.LENGTH_LONG).show();
                 Confirmed = true;
             }
         } catch (Exception ex) {
@@ -136,22 +129,16 @@ public class LoginActivity extends Activity {
      * @param passhash, user's password hash
      * @param uri,      either use login/ or register/ depending on the action you want to use
      */
-    private void postLoginRegister(final String username, final String passhash, final String uri) {
-        String URL = API_URL + uri;
-        //String URL = "https://5rjo0j0puhq4.runscope.net";
-
+    private void postLogin(final String username, final String passhash, final String uri) {
+        String URL = Login_URL + uri;
         try {
-            URL += "?username=" + URLEncoder.encode(username, "UTF-8");
-            URL += "&passhash=" + URLEncoder.encode(passhash, "UTF-8");
+            URL += "?" + "username=" + URLEncoder.encode(username, "UTF-8");
+            URL += "&" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Log.wtf("Login", e);
         }
 
-        Log.d("JsonTest", URL);
-
-        StringRequest jsLoginPostRequest = new StringRequest(
-                Method.POST,
-                URL,
+        StringRequest jsLoginPostRequest = new StringRequest( Method.POST, URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -160,18 +147,9 @@ public class LoginActivity extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("JsonTest", "Never got back?");
-
+                Log.e("LoginQuery", "Failed to login " + error);
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("User-agent", "StalkMeAgent");
-                return headers;
-            }
-        };
+        });
         requestQueue.add(jsLoginPostRequest);
     }
 }
