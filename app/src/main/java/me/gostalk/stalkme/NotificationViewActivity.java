@@ -2,27 +2,35 @@ package me.gostalk.stalkme;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
 public class NotificationViewActivity extends Activity {
 
     String message;
+    Bitmap image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_view);
         TextView mTextView = (TextView) findViewById(R.id.NotificationTextView);
+        ImageView mImageView = (ImageView) findViewById(R.id.info_image);
 
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
             message = extras.getString("EXTRA_MESSAGE");
             mTextView.setText(message);
+            image = getBitmap(extras.getByteArray("EXTRA_BITMAP"));
+            mImageView.setImageBitmap(image);
+
         }
 
 
@@ -44,5 +52,9 @@ public class NotificationViewActivity extends Activity {
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public Bitmap getBitmap(byte[] bitmap) {
+        return BitmapFactory.decodeByteArray(bitmap, 0, bitmap.length);
     }
 }

@@ -122,12 +122,7 @@ public class Tab3Fragment extends Fragment {
        Marker mark = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
                 .position(new LatLng(41.889, -87.622)));
-
-        Marker mark2 = map.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
-                .position(new LatLng(42.889, -87.622)));
         markers.add(mark);
-        markers.add(mark2);
     }
 
     private void CenterMapOnMarkers()

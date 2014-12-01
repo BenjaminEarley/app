@@ -2,6 +2,9 @@ package Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +14,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.nio.ByteBuffer;
 
 import me.gostalk.stalkme.MainActivity;
 import me.gostalk.stalkme.NotificationViewActivity;
@@ -24,6 +31,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
     private String[] mDataSet;
     private Context mContext;
+    private Bitmap locationImage;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -37,6 +45,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
             super(itemView);
             mTextView = (TextView) itemView.findViewById(R.id.textView);
             mImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            File root = mContext.getFilesDir();
+            locationImage = BitmapFactory.decodeFile(root+"/location.PNG");
+            mImageView.setImageBitmap(locationImage);
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -52,7 +63,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                                     mImageView,   // The view which starts the transition
                                     "test"    // The transitionName of the view we’re transitioning to
                             );
+
                     intent.putExtra("EXTRA_MESSAGE",mTextView.getText());
+                    intent.putExtra("EXTRA_BITMAP", getByteArray(locationImage));
                     ActivityCompat.startActivity((MainActivity) mContext, intent, options.toBundle());
                 }
             });
@@ -68,7 +81,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomRecyclerAdapter(String[] dataSet, Context context) {
+    public CustomRecyclerAdapter(Bitmap locationImage, String[] dataSet, Context context) {
         mDataSet = dataSet;
         mContext = context;
     }
@@ -101,5 +114,11 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     @Override
     public int getItemCount() {
         return mDataSet.length;
+    }
+
+    public byte[] getByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+        return bos.toByteArray();
     }
 }

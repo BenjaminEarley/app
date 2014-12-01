@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
 import com.shamanland.fab.FloatingActionButton;
 import com.shamanland.fab.ShowHideOnScroll;
 
@@ -38,10 +31,7 @@ public class Tab2Fragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    private GoogleMap map;
-    private MapView mapView;
     protected String[] mDataset;
-    double latitude, logitude;
     private static final String TAG = "RecyclerView2Fragment";
 
     @Override
@@ -51,7 +41,7 @@ public class Tab2Fragment extends Fragment {
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
         initDataset();
-        //searchAndInitDataset("7");
+
     }
 
     @Override
@@ -60,34 +50,6 @@ public class Tab2Fragment extends Fragment {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.tab2_view, container, false);
         rootView.setTag(TAG);
-
-        if (rootView != null) {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
-            if (parent != null)
-                parent.removeView(rootView);
-        }
-        try {
-            // Gets the MapView from the XML layout and creates it
-            mapView = (MapView) rootView.findViewById(R.id.map_invisible);
-            mapView.onCreate(savedInstanceState);
-
-            // Gets to GoogleMap from the MapView and does initialization stuff
-            map = mapView.getMap();
-            map.getUiSettings().setMyLocationButtonEnabled(false);
-            map.setMyLocationEnabled(true);
-
-            // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
-            try {
-                MapsInitializer.initialize(this.getActivity());
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-            CenterMap();
-        } catch (InflateException e) {
-            // map is already there, just return view as it is
-        }
-
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView2);
 
@@ -97,7 +59,7 @@ public class Tab2Fragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new CustomRecyclerAdapter2(latitude, logitude,map, mDataset, getActivity());
+        mAdapter = new CustomRecyclerAdapter2(mDataset, getActivity());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -126,7 +88,6 @@ public class Tab2Fragment extends Fragment {
                 builder.show();
             }
         });
-
 
         return rootView;
     }
@@ -164,24 +125,6 @@ private void SetDialog(View view)
 
 }
 
-    @Override
-    public void onResume() {
-        mapView.onResume();
-        super.onResume();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
-
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
      * from a local content provider or remote server.
@@ -194,33 +137,10 @@ private void SetDialog(View view)
     }
 
     private void searchAndInitDataset(String search) {
-        mDataset = new String[1];
-        //if(mDataset[i].toLowerCase().contains(search.toLowerCase()))
-            mDataset[0] = "This is friend #" + 7;
-    }
-
-    private void CenterMap() {
-
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if (location != null)
-
-        {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
-                    .zoom(17)                   // Sets the zoom
-                    .bearing(90)                // Sets the orientation of the camera to east
-                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
-                    .build();                   // Creates a CameraPosition from the builder
-            latitude = location.getLatitude();
-            logitude = location.getLongitude();
-            map.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+        mDataset = new String[60];
+        for (int i=0; i < 60; i++) {
+            if (mDataset[i].toLowerCase().contains(search.toLowerCase()))
+            mDataset[i] = "This is friend #" + i;
         }
     }
 }
