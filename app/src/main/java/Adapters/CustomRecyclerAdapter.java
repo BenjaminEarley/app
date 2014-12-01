@@ -64,6 +64,9 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                                     + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
 
                     MainActivity activity = (MainActivity)mContext;
+                    activity.latitude = latitude[getPosition()];
+                    activity.longitude = longitude[getPosition()];
+                    activity.swipeToMap();
                     /*Intent intent = new Intent(mContext, NotificationViewActivity.class);
                     ActivityOptionsCompat options =
                             ActivityOptionsCompat.makeSceneTransitionAnimation((MainActivity) mContext,

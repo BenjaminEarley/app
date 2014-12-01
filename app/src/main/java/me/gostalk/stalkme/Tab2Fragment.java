@@ -28,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+
 import Adapters.CustomRecyclerAdapter2;
 
 public class Tab2Fragment extends Fragment {
@@ -142,8 +144,11 @@ private void SetDialog(View view)
         mDataset[0] = "Loading...";
 
         MainActivity activity = (MainActivity)getActivity();
-        String name = activity.name;
-        String passhash = activity.passwd;
+
+        SessionManager session = new SessionManager(getActivity());
+        HashMap<String, String> user = session.getUserDetails();
+        String name = user.get(SessionManager.KEY_NAME);
+        String passhash = user.get(SessionManager.KEY_PASSWORD);
 
         String URL = "http://api.gostalk.me/relation/" + name;
         try {

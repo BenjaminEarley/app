@@ -115,8 +115,8 @@ public class Tab3Fragment extends Fragment {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
                 .position(new LatLng(lat, lng)));
 
-        activity.latitude;
-        activity.longitude;
+        activity.latitude = 0D;
+        activity.longitude = 0D;
          /*   CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom

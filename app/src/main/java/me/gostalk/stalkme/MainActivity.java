@@ -42,11 +42,13 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     // Session Manager Class
     SessionManager session;
 
-    public String name, passwd;
+    public String name, passwd = "";
 
     // Tabs and Action Bar
     private ViewPager viewPager;
     private ActionBar actionBar;
+
+    public double longitude, latitude;
 
     // Tab titles
     //private String[] tabs = {"Notifications", "Friends", "Map"};
@@ -90,6 +92,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         session.checkLogin();
 
+
         // get user data from session
         HashMap<String, String> user = session.getUserDetails();
 
@@ -119,6 +122,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 .setTabListener(this).setIcon(R.drawable.ic_person_white_24dp));
         actionBar.addTab(actionBar.newTab()
                 .setTabListener(this).setIcon(R.drawable.ic_map_white_24dp));
+
+
 
 
         /**
@@ -338,9 +343,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     private void sendRegistrationIdToBackend(String regid) {
         // Your implementation here.
-        String REG_URL = "http://api.gostalk.me/user/" + this.name + "/register_gcm/" + regid;
+        String REG_URL = "http://api.gostalk.me/user/" + name + "/register_gcm/" + regid;
         try {
-            REG_URL += "?" + "passhash=" + URLEncoder.encode(this.passwd, "UTF-8");
+            REG_URL += "?" + "passhash=" + URLEncoder.encode(passwd, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             Log.wtf("Login", e);
         }
@@ -377,5 +382,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.apply();
+    }
+
+    public void swipeToMap() {
+        actionBar.setSelectedNavigationItem(2);
     }
 }
