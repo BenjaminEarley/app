@@ -91,6 +91,7 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
         _map = map;
         _latitude = latitude;
         _longitude = logitude;
+        galleryAddPic();
 
     }
 
