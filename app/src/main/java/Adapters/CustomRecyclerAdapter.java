@@ -117,7 +117,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         viewHolder.getmTextView().setText(mDataSet[position]);
-        viewHolder.getmTextView2().setText(String.valueOf(latitude[position]) + String.valueOf(longitude[position]));
+        viewHolder.getmTextView2().setText("Latitude :" + String.valueOf(latitude[position]) + "\nLongitude: " + String.valueOf(longitude[position]));
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
 

@@ -65,8 +65,8 @@ public class Tab1Fragment extends Fragment  {
         longitude = new double[60];
         for (int i=0; i < 60; i++) {
             mDataset[i] = "This is notification #" + i;
-            latitude[i] = 121311.2323 + i;
-            longitude[i] = 5435345.345345 + i;
+            latitude[i] = 36.7163306 + i;
+            longitude[i] = -76.2652907 + i;
         }
     }
 }
