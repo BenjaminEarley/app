@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.loopj.android.http.*;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -105,7 +106,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 
         actionBar.addTab(actionBar.newTab()
-                    .setTabListener(this).setIcon(R.drawable.ic_mms_white_24dp));
+                .setTabListener(this).setIcon(R.drawable.ic_mms_white_24dp));
         actionBar.addTab(actionBar.newTab()
                 .setTabListener(this).setIcon(R.drawable.ic_person_white_24dp));
         actionBar.addTab(actionBar.newTab()
@@ -281,42 +282,42 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     private class registerInBackground extends AsyncTask<String,String,String> {
 
-            @Override
-            protected String doInBackground(String... params) {
-                String msg = "                                    ";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(context);
-                    }
-                    regid = gcm.register(SENDER_ID);
-                    msg = "Device registered, registration ID=" + regid;
-
-                    // You should send the registration ID to your server over HTTP,
-                    // so it can use GCM/HTTP or CCS to send messages to your app.
-                    // The request to your server should be authenticated if your app
-                    // is using accounts.
-                    sendRegistrationIdToBackend();
-
-                    // For this demo: we don't need to send it because the device
-                    // will send upstream messages to a server that echo back the
-                    // message using the 'from' address in the message.
-
-                    // Persist the regID - no need to register again.
-                    storeRegistrationId(context, regid);
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                    // If there is an error, don't jus t keep trying to register.
-                    // Require the user to click a button again, or perform
-                    // exponential back-off.
+        @Override
+        protected String doInBackground(String... params) {
+            String msg = "                                    ";
+            try {
+                if (gcm == null) {
+                    gcm = GoogleCloudMessaging.getInstance(context);
                 }
-                return msg;
-            }
+                regid = gcm.register(SENDER_ID);
+                msg = "Device registered, registration ID=" + regid;
 
-            @Override
-            protected void onPostExecute(String msg) {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
-                System.out.println(msg);
+                // You should send the registration ID to your server over HTTP,
+                // so it can use GCM/HTTP or CCS to send messages to your app.
+                // The request to your server should be authenticated if your app
+                // is using accounts.
+                sendRegistrationIdToBackend();
+
+                // For this demo: we don't need to send it because the device
+                // will send upstream messages to a server that echo back the
+                // message using the 'from' address in the message.
+
+                // Persist the regID - no need to register again.
+                storeRegistrationId(context, regid);
+            } catch (IOException ex) {
+                msg = "Error :" + ex.getMessage();
+                // If there is an error, don't jus t keep trying to register.
+                // Require the user to click a button again, or perform
+                // exponential back-off.
             }
+            return msg;
+        }
+
+        @Override
+        protected void onPostExecute(String msg) {
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            System.out.println(msg);
+        }
         //...
     }
 
