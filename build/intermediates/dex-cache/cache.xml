@@ -61,5 +61,11 @@
         jumboMode="false"
         revision="21.1.1"
         sha1="4796f18d3750bf2bfa078407a94a7f9db35b440d"/>
+    <item
+        dex="C:\Users\Benjamin\AndroidStudioProjects\StalkMe\app\build\intermediates\pre-dexed\debug\android-async-http-1.4.6-657a3b383917ab6a048f905aa5005298248915c0.jar"
+        jar="C:\Users\Benjamin\.gradle\caches\modules-2\files-2.1\com.loopj.android\android-async-http\1.4.6\a845a88238be0b5be9d238652c1bc0605ef91f52\android-async-http-1.4.6.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="a845a88238be0b5be9d238652c1bc0605ef91f52"/>
 
 </pre-dex-items>
