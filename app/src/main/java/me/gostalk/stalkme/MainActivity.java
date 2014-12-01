@@ -17,9 +17,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -56,6 +66,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
     Context context;
+    RequestQueue requestQueue;
 
     String regid;
 
@@ -63,6 +74,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        requestQueue = Volley.newRequestQueue(this);
 
         context = getApplicationContext();
 
@@ -334,6 +347,26 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.apply();
+    }
+
+    private void getTestData() {
+        final String URL = API_URL + "test/";
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, URL, null, new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_LONG).show();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+        requestQueue.add(jsObjRequest);
     }
 
 }
