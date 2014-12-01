@@ -181,14 +181,13 @@ public class Tab3Fragment extends Fragment {
         //locationManager.removeGpsStatusListener();
         markers = new ArrayList<Marker>();
 
-        Marker mark = map.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
-                .title(title)
-                .position(new LatLng(lat, lng)));
-
-        if (lat != 0D && lng != 0D)
-        markers.add(mark);
-
+        if (lat != 0D && lng != 0D) {
+            Marker mark = map.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                    .title(title)
+                    .position(new LatLng(lat, lng)));
+            markers.add(mark);
+        }
         Marker mark2 = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
                 .title(name)
