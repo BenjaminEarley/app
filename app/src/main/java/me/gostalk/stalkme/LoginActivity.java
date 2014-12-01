@@ -85,7 +85,7 @@ public class LoginActivity extends Activity {
                     // For testing puspose username, password is checked with sample data
                     // username = test
                     // password = test
-                    postLogin(username, password, "login/");
+                    postLogin(username, password);
                 } else {
                     // user didn't entered username or password
                     // Show alert asking him to enter the details
@@ -127,10 +127,9 @@ public class LoginActivity extends Activity {
     /**
      * @param username, user's username
      * @param passhash, user's password hash
-     * @param uri,      either use login/ or register/ depending on the action you want to use
      */
-    private void postLogin(final String username, final String passhash, final String uri) {
-        String URL = Login_URL + uri;
+    private void postLogin(final String username, final String passhash) {
+        String URL = Login_URL;
         try {
             URL += "?" + "username=" + URLEncoder.encode(username, "UTF-8");
             URL += "&" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
