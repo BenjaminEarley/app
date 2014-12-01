@@ -1,6 +1,7 @@
 package me.gostalk.stalkme;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -61,9 +62,9 @@ public class Tab3Fragment extends Fragment {
                 e.printStackTrace();
 
             }
-          //  CenterMap();
-            AddMarkers();
-            CenterMapOnMarkers();
+            CenterMap();
+            //AddMarkers();
+            // CenterMapOnMarkers();
         } catch (InflateException e) {
 
 // map is already there, just return view as it is
@@ -94,32 +95,44 @@ public class Tab3Fragment extends Fragment {
 
     private void CenterMap() {
 
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
+        //  LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        //  Criteria criteria = new Criteria();
 
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        if (location != null)
+        //   Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        // if (location != null)
 
-        {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+        // {
+/*            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                    new LatLng(location.getLatitude(), location.getLongitude()), 13));*/
+        MainActivity activity = (MainActivity)getActivity();
+        Double lat = activity.latitude;
+        Double lng = activity.longitude;
 
-            CameraPosition cameraPosition = new CameraPosition.Builder()
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                new LatLng(lat, lng), 13));
+
+        map.addMarker(new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
+                .position(new LatLng(lat, lng)));
+
+        activity.latitude;
+        activity.longitude;
+         /*   CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
                     .zoom(17)                   // Sets the zoom
                     .bearing(90)                // Sets the orientation of the camera to east
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
                     .build();                   // Creates a CameraPosition from the builder
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
 
-        }
+        //  }
     }
 
     private void AddMarkers()
     {
         markers = new ArrayList<Marker>();
 
-       Marker mark = map.addMarker(new MarkerOptions()
+        Marker mark = map.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_place_red_24px_highres))
                 .position(new LatLng(41.889, -87.622)));
         markers.add(mark);
