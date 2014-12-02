@@ -219,6 +219,6 @@ public class Tab3Fragment extends Fragment {
             cu = CameraUpdateFactory.newLatLngZoom(markers.get(0).getPosition(), 13F);
         }
 
-        map.moveCamera(cu); // map.moveCamera(cu);
+        map.animateCamera(cu); // map.moveCamera(cu);
     }
 }
