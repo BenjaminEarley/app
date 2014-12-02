@@ -125,7 +125,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         actionBar.addTab(actionBar.newTab()
                 .setTabListener(this).setIcon(R.drawable.ic_map_white_24dp));
 
-
+        actionBar.setSelectedNavigationItem(1);
 
 
         /**

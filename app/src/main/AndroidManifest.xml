@@ -63,7 +63,8 @@
         <activity
             android:name="me.gostalk.stalkme.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,7 +75,8 @@
         <!-- DashBoard / MainActivity -->
         <activity
             android:name="me.gostalk.stalkme.LoginActivity"
-            android:label="User Login" >
+            android:label="User Login"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -87,7 +89,8 @@
         <activity
             android:name="me.gostalk.stalkme.NotificationViewActivity"
             android:label="@string/title_activity_notification_view"
-            android:parentActivityName="me.gostalk.stalkme.MainActivity" >
+            android:parentActivityName="me.gostalk.stalkme.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.gostalk.stalkme.MainActivity" />

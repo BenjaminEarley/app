@@ -143,8 +143,6 @@ private void SetDialog(View view)
         mDataset = new String[1];
         mDataset[0] = "Loading...";
 
-        MainActivity activity = (MainActivity)getActivity();
-
         SessionManager session = new SessionManager(getActivity());
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(SessionManager.KEY_NAME);
