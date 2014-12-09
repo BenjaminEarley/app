@@ -130,7 +130,10 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        if (mDataSet == null)
+            return 0;
+        else
+            return mDataSet.length;
     }
 
     public byte[] getByteArray(Bitmap bitmap) {

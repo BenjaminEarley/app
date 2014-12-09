@@ -40,7 +40,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     // Session Manager Class
-    SessionManager session;
+    public SessionManager session;
 
     public String name, passwd = "";
 
@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    private final static String API_URL = "https://api.gostalk.me/"; // All API calls go here
+    private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
 
     /**
      * Substitute you own sender ID here. This is the project number you got
@@ -80,12 +80,9 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestQueue = Volley.newRequestQueue(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //requestQueue = Volley.newRequestQueue(this);
 
         context = getApplicationContext();
 
@@ -93,6 +90,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         session = new SessionManager(context);
 
         session.checkLogin();
+
+        requestQueue = Volley.newRequestQueue(this);
 
 
         // get user data from session
@@ -151,7 +150,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         // Check device for Play Services APK. If check succeeds, proceed with
         //  GCM registration.
-        if (checkPlayServices()) {
+        if (checkPlayServices() && session.isLoggedIn()) {
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
@@ -345,7 +344,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     private void sendRegistrationIdToBackend(String regid) {
         // Your implementation here.
-        String REG_URL = "https://api.gostalk.me/user/" + name + "/register_gcm/" + regid;
+        String REG_URL = "http://api.gostalk.me/user/" + name + "/register_gcm/" + regid;
         try {
             REG_URL += "?" + "passhash=" + URLEncoder.encode(passwd, "UTF-8");
         } catch (UnsupportedEncodingException e) {

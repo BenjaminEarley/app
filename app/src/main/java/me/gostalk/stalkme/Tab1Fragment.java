@@ -49,6 +49,8 @@ public class Tab1Fragment extends Fragment  {
 
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
+        MainActivity main = (MainActivity)getActivity();
+        if (main.session.isLoggedIn())
         initDataset();
     }
 
@@ -109,7 +111,7 @@ public class Tab1Fragment extends Fragment  {
         passhash = activity.passwd;
         name = activity.name;
 
-        String URL = "https://api.gostalk.me/user/" + name + "/since/1";
+        String URL = "http://api.gostalk.me/user/" + name + "/since/1";
         try {
             URL += "?" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
         } catch (UnsupportedEncodingException e) {
