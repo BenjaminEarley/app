@@ -60,7 +60,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    private final static String API_URL = "http://api.gostalk.me/"; // All API calls go here
+    private final static String API_URL = "https://api.gostalk.me/"; // All API calls go here
 
     /**
      * Substitute you own sender ID here. This is the project number you got
@@ -344,7 +344,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      */
     private void sendRegistrationIdToBackend(String regid) {
         // Your implementation here.
-        String REG_URL = "http://api.gostalk.me/user/" + name + "/register_gcm/" + regid;
+        String REG_URL = "https://api.gostalk.me/user/" + name + "/register_gcm/" + regid;
         try {
             REG_URL += "?" + "passhash=" + URLEncoder.encode(passwd, "UTF-8");
         } catch (UnsupportedEncodingException e) {

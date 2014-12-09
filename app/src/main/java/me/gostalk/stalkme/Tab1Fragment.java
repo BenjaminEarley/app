@@ -111,7 +111,7 @@ public class Tab1Fragment extends Fragment  {
         passhash = activity.passwd;
         name = activity.name;
 
-        String URL = "http://api.gostalk.me/user/" + name + "/since/1";
+        String URL = "https://api.gostalk.me/user/" + name + "/since/1";
         try {
             URL += "?" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
         } catch (UnsupportedEncodingException e) {

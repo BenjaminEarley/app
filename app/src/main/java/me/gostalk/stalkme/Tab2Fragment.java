@@ -150,7 +150,7 @@ private void SetDialog(View view)
         String name = user.get(SessionManager.KEY_NAME);
         String passhash = user.get(SessionManager.KEY_PASSWORD);
 
-        String URL = "http://api.gostalk.me/relation/" + name;
+        String URL = "https://api.gostalk.me/relation/" + name;
         try {
             URL += "?" + "passhash=" + URLEncoder.encode(passhash, "UTF-8");
         } catch (UnsupportedEncodingException e) {

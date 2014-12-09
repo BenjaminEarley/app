@@ -40,7 +40,7 @@ public class LoginActivity extends Activity {
 
     Boolean Confirmed = false;
 
-    private final static String Login_URL = "http://api.gostalk.me/login/"; // All API calls go here
+    private final static String Login_URL = "https://api.gostalk.me/login/"; // All API calls go here
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
