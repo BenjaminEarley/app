@@ -18,13 +18,28 @@
         android:id="@+id/txtSearchPeople"
        />
 
-
-    <ListView
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/lstPeople"
-       >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal">
 
-    </ListView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Friend"
+            android:id="@+id/btnAddFriend"
+            />
+
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/btnCancel"
+            android:text="Cancel"></Button>
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

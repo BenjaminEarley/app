@@ -91,6 +91,7 @@ public class LoginActivity extends Activity {
                     // user didn't entered username or password
                     // Show alert asking him to enter the details
                     alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
+
                 }
 
             }

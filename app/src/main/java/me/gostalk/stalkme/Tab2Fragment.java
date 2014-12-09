@@ -13,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import Adapters.CustomRecyclerAdapter2;
@@ -78,14 +81,6 @@ public class Tab2Fragment extends Fragment {
 
         // Make this {@link Fragment} listen for changes FABs.
         FloatingActionButton fab1 = (FloatingActionButton) rootView.findViewById(R.id.fab_1);
-        //Set floating button Click Listener
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "test", Toast.LENGTH_LONG).show();
-            }
-        });
-
         mRecyclerView.setOnTouchListener(new ShowHideOnScroll(fab1));
 
         //Set floating button Click Listener
@@ -106,36 +101,85 @@ public class Tab2Fragment extends Fragment {
 
 private void SetDialog(View view)
 {
-    ListView lstPeople = (ListView) view.findViewById(R.id.lstPeople);
-     String[] people = {"person1", "person2", "person3"};
-     ArrayAdapter<String> adapter;
-    EditText txtSearch = (EditText) view.findViewById(R.id.txtSearchPeople);
 
-    adapter =  new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, people);
-    lstPeople.setAdapter(adapter);
-   lstPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-       @Override
-       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-           //TODO add friend when clicked
-       }
-   });
+    //200 add success 304 relation exits 403 u1 not exist 402 u2 dne
+    // String[] people = {"person1", "person2", "person3"}; // /relation/username1/add/username2?passhash=$passhash
+   final EditText txtSearch = (EditText) view.findViewById(R.id.txtSearchPeople);
+    Button btnAdd = (Button) view.findViewById(R.id.btnAddFriend);
+    Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
-    txtSearch.addTextChangedListener(new TextWatcher() {
 
-        public void afterTextChanged(Editable s) {
 
-           //TODO implement Search/ update adapter
+
+    btnAdd.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            SessionManager session = new SessionManager(getActivity());
+             String URL = "https://api.gostalk.me/relation/";
+            HashMap<String, String> user = session.getUserDetails();
+            String name = user.get(SessionManager.KEY_NAME);
+            String passhash = user.get(SessionManager.KEY_PASSWORD);
+
+            try {
+                URL += URLEncoder.encode(name, "UTF-8") + "/add/" + txtSearch.getText() + "?passhash=" + passhash;
+            }
+            catch (UnsupportedEncodingException e) {
+                Log.wtf("Login", e);
+            }
+            StringRequest jsLoginPostRequest = new StringRequest( Request.Method.POST, URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            GetResponse(response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("RegisterQuery", "Failed to register " + error);
+                }
+            });
+            requestQueue.add(jsLoginPostRequest);
 
         }
+    });
 
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-        public void onTextChanged(CharSequence s, int start, int before, int count) {}
+    btnCancel.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            
+        }
     });
 
 
-
 }
+    private void GetResponse(String stringResponse)
+    {
+        try {
+            JSONObject response = new JSONObject(stringResponse);
+            String code = response.getJSONObject("meta").getString("code");
+
+            switch (code)
+            {
+                case "200":
+                    Toast.makeText(getActivity().getApplicationContext(), "Friend added", Toast.LENGTH_LONG).show();
+                    initDataset();
+                    break;
+                case "304":
+                    Toast.makeText(getActivity().getApplicationContext(), "You've already added this friend", Toast.LENGTH_LONG).show();
+                    break;
+                case "402":
+                    Toast.makeText(getActivity().getApplicationContext(), "Friend does not exist", Toast.LENGTH_LONG).show();
+                    break;
+                case "403":
+                    Toast.makeText(getActivity().getApplicationContext(), "User does not exist", Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
@@ -143,7 +187,7 @@ private void SetDialog(View view)
      */
     private void initDataset() {
         mDataset = new String[1];
-        mDataset[0] = "Loading...";
+        mDataset[0] = "";
 
         SessionManager session = new SessionManager(getActivity());
         HashMap<String, String> user = session.getUserDetails();
