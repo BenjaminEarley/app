@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.gostalk.stalkme"
     android:versionCode="1"
-    android:versionName=".2" >
+    android:versionName=".5" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -76,6 +76,11 @@
         <activity
             android:name="me.gostalk.stalkme.LoginActivity"
             android:label="User Login"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="me.gostalk.stalkme.RegisterActivity"
+            android:label="Register"
             android:screenOrientation="portrait" >
         </activity>
 

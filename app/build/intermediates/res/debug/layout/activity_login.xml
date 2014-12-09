@@ -40,13 +40,31 @@
         android:layout_height="wrap_content"
         android:text="Login"/>
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Don&apos;t Have An Account? CLick Here"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        android:clickable="true"
+        />-->
+    <view xmlns:android="http://schemas.android.com/apk/res/android"
+        class="me.gostalk.stalkme.LinedEditText"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:background="@android:color/transparent"
+        android:padding="5dp"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"
+        android:gravity="top"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+                android:text="Don&apos;t Have An Account? CLick Here"
+        android:capitalize="sentences" />
+
 
 </LinearLayout><!-- From: file:/C:/Users/Benjamin/AndroidStudioProjects/StalkMe/app/src/main/res/layout/activity_login.xml -->

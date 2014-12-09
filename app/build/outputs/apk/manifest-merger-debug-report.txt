@@ -159,54 +159,62 @@ ADDED from AndroidManifest.xml:76:9
 		ADDED from AndroidManifest.xml:78:13
 	android:name
 		ADDED from AndroidManifest.xml:77:13
-meta-data#com.google.android.gms.version
+activity#me.gostalk.stalkme.RegisterActivity
 ADDED from AndroidManifest.xml:82:9
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:85:13
+	android:label
+		ADDED from AndroidManifest.xml:84:13
 	android:name
 		ADDED from AndroidManifest.xml:83:13
-	android:value
-		ADDED from AndroidManifest.xml:84:13
-meta-data#com.google.android.maps.v2.API_KEY
-ADDED from AndroidManifest.xml:85:9
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:88:9
 	android:name
-		ADDED from AndroidManifest.xml:86:13
+		ADDED from AndroidManifest.xml:89:13
 	android:value
-		ADDED from AndroidManifest.xml:87:13
-activity#me.gostalk.stalkme.NotificationViewActivity
-ADDED from AndroidManifest.xml:89:9
-	android:screenOrientation
-		ADDED from AndroidManifest.xml:93:13
-	android:label
-		ADDED from AndroidManifest.xml:91:13
-	android:parentActivityName
-		ADDED from AndroidManifest.xml:92:13
-	android:name
 		ADDED from AndroidManifest.xml:90:13
-meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:94:13
+meta-data#com.google.android.maps.v2.API_KEY
+ADDED from AndroidManifest.xml:91:9
 	android:name
-		ADDED from AndroidManifest.xml:95:17
+		ADDED from AndroidManifest.xml:92:13
 	android:value
-		ADDED from AndroidManifest.xml:96:17
-receiver#me.gostalk.stalkme.GcmBroadcastReceiver
-ADDED from AndroidManifest.xml:98:9
-	android:permission
-		ADDED from AndroidManifest.xml:100:13
-	android:name
+		ADDED from AndroidManifest.xml:93:13
+activity#me.gostalk.stalkme.NotificationViewActivity
+ADDED from AndroidManifest.xml:95:9
+	android:screenOrientation
 		ADDED from AndroidManifest.xml:99:13
+	android:label
+		ADDED from AndroidManifest.xml:97:13
+	android:parentActivityName
+		ADDED from AndroidManifest.xml:98:13
+	android:name
+		ADDED from AndroidManifest.xml:96:13
+meta-data#android.support.PARENT_ACTIVITY
+ADDED from AndroidManifest.xml:100:13
+	android:name
+		ADDED from AndroidManifest.xml:101:17
+	android:value
+		ADDED from AndroidManifest.xml:102:17
+receiver#me.gostalk.stalkme.GcmBroadcastReceiver
+ADDED from AndroidManifest.xml:104:9
+	android:permission
+		ADDED from AndroidManifest.xml:106:13
+	android:name
+		ADDED from AndroidManifest.xml:105:13
 intent-filter#com.example.gcm+com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:101:13
+ADDED from AndroidManifest.xml:107:13
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:102:17
+ADDED from AndroidManifest.xml:108:17
 	android:name
-		ADDED from AndroidManifest.xml:102:25
+		ADDED from AndroidManifest.xml:108:25
 category#com.example.gcm
-ADDED from AndroidManifest.xml:103:17
+ADDED from AndroidManifest.xml:109:17
 	android:name
-		ADDED from AndroidManifest.xml:103:27
+		ADDED from AndroidManifest.xml:109:27
 service#me.gostalk.stalkme.GcmIntentService
-ADDED from AndroidManifest.xml:106:9
+ADDED from AndroidManifest.xml:112:9
 	android:name
-		ADDED from AndroidManifest.xml:106:18
+		ADDED from AndroidManifest.xml:112:18
 activity#android.support.v7.widget.TestActivity
 ADDED from com.android.support:recyclerview-v7:21.0.2:18:9
 	android:label
