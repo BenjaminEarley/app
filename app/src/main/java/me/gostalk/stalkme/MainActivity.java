@@ -175,7 +175,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
          * */
         session.checkLogin();
         checkPlayServices();
-        Toast.makeText(getApplicationContext(), name + passwd + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), name + passwd + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -328,7 +328,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
         @Override
         protected void onPostExecute(String msg) {
-            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
             System.out.println(msg);
         }
         //...

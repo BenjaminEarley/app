@@ -58,7 +58,7 @@ public class LoginActivity extends Activity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         LinedEditText RegisterText = (LinedEditText) findViewById(R.id.textView2);
 
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
 
         // Login button
