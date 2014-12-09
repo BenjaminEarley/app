@@ -18,7 +18,7 @@
         android:id="@+id/txtSearchPeople"
        />
 
-    <LinearLayout
+<!--    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:text="Cancel"></Button>
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </LinearLayout>

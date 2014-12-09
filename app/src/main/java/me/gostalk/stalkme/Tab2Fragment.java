@@ -1,6 +1,7 @@
 package me.gostalk.stalkme;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -44,6 +45,8 @@ public class Tab2Fragment extends Fragment {
     private static final String TAG = "RecyclerView2Fragment";
 
     RequestQueue requestQueue;
+    View dialogLayout;
+    AlertDialog.Builder builder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,10 +91,11 @@ public class Tab2Fragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                View dialogLayout = inflater.inflate(R.layout.add_friend, container, false);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                 dialogLayout = inflater.inflate(R.layout.add_friend, container, false);
+                 builder = new AlertDialog.Builder(getActivity());
                 SetDialog(dialogLayout);
                 builder.setView(dialogLayout);
+
                 builder.show();
             }
         });
@@ -105,52 +109,53 @@ private void SetDialog(View view)
     //200 add success 304 relation exits 403 u1 not exist 402 u2 dne
     // String[] people = {"person1", "person2", "person3"}; // /relation/username1/add/username2?passhash=$passhash
    final EditText txtSearch = (EditText) view.findViewById(R.id.txtSearchPeople);
-    Button btnAdd = (Button) view.findViewById(R.id.btnAddFriend);
-    Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+    //Button btnAdd = (Button) view.findViewById(R.id.btnAddFriend);
+   // Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
-
-
-
-    btnAdd.setOnClickListener(new View.OnClickListener() {
+/*    btnAdd.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            SessionManager session = new SessionManager(getActivity());
-             String URL = "https://api.gostalk.me/relation/";
-            HashMap<String, String> user = session.getUserDetails();
-            String name = user.get(SessionManager.KEY_NAME);
-            String passhash = user.get(SessionManager.KEY_PASSWORD);
 
-            try {
-                URL += URLEncoder.encode(name, "UTF-8") + "/add/" + txtSearch.getText() + "?passhash=" + passhash;
-            }
-            catch (UnsupportedEncodingException e) {
-                Log.wtf("Login", e);
-            }
-            StringRequest jsLoginPostRequest = new StringRequest( Request.Method.POST, URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            GetResponse(response);
-                        }
-                    }, new Response.ErrorListener() {
+        }
+    });*/
+
+            builder.setPositiveButton("Add Friend", new DialogInterface.OnClickListener() {
                 @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("RegisterQuery", "Failed to register " + error);
+                public void onClick(DialogInterface dialog, int which) {
+                    SessionManager session = new SessionManager(getActivity());
+                    String URL = "https://api.gostalk.me/relation/";
+                    HashMap<String, String> user = session.getUserDetails();
+                    String name = user.get(SessionManager.KEY_NAME);
+                    String passhash = user.get(SessionManager.KEY_PASSWORD);
+
+                    try {
+                        URL += URLEncoder.encode(name, "UTF-8") + "/add/" + txtSearch.getText() + "?passhash=" + passhash;
+                    }
+                    catch (UnsupportedEncodingException e) {
+                        Log.wtf("Login", e);
+                    }
+                    StringRequest jsLoginPostRequest = new StringRequest( Request.Method.POST, URL,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    GetResponse(response);
+                                }
+                            }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("RegisterQuery", "Failed to register " + error);
+                        }
+                    });
+                    requestQueue.add(jsLoginPostRequest);
+
                 }
             });
-            requestQueue.add(jsLoginPostRequest);
-
-        }
-    });
-
-    btnCancel.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            
-        }
-    });
-
-
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
 }
     private void GetResponse(String stringResponse)
     {
