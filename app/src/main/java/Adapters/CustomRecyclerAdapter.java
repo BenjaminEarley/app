@@ -57,11 +57,11 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(
+                    /*Toast.makeText(
                             mContext,
                             "onItemClick - " + getPosition() + " - "
                                     + mTextView.getText().toString() + " - "
-                                    + mDataSet[getPosition()], Toast.LENGTH_LONG).show();
+                                    + mDataSet[getPosition()], Toast.LENGTH_LONG).show();*/
 
                     MainActivity activity = (MainActivity)mContext;
                     activity.latitude = latitude[getPosition()];
