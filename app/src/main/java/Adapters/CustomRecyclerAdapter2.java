@@ -90,7 +90,7 @@ public class CustomRecyclerAdapter2 extends RecyclerView.Adapter<CustomRecyclerA
             String name = activity.name;
             String passhash = activity.passwd;
 
-            String URL = "http://api.gostalk.me/user/" + name + "/notify/" + mTextView.getText().toString();
+            String URL = "https://api.gostalk.me/user/" + name + "/notify/" + mTextView.getText().toString();
             try {
                 URL += "?" + "longitude=" + URLEncoder.encode(String.valueOf(_longitude), "UTF-8");
                 URL += "&" + "latitude=" + URLEncoder.encode(String.valueOf(_latitude), "UTF-8");
