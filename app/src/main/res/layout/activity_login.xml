@@ -61,9 +61,9 @@
         android:scrollbars="vertical"
         android:fadingEdge="vertical"
         android:gravity="top"
-
-        android:editable="false"
-        android:text="Don&apos;t Have An Account? CLick Here"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+                android:text="Don&apos;t Have An Account? CLick Here"
         android:capitalize="sentences" />
 
 
