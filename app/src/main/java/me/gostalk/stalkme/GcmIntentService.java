@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -16,10 +18,24 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import Adapters.CustomRecyclerAdapter;
+
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
+
+    String Latitude = "";
+    String Longitude = "";
+    String From = "";
+    Bitmap remote_picture = null;
 
     public GcmIntentService() {
         super("GcmIntentService");
@@ -28,6 +44,9 @@ public class GcmIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Bundle extras = intent.getExtras();
+        String message = extras.getString("message");
+        renderLoadedData(message);
+        message = "Position: " + Latitude + " " + Longitude;
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
@@ -50,14 +69,10 @@ public class GcmIntentService extends IntentService {
                 // If it's a regular GCM message, do some work.
             } else if (GoogleCloudMessaging.
                     MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-                // This loop represents the service doing some work.
-                for (int i=0; i<5; i++) {
-                    Log.i("GCM intent", "Working... " + (i + 1)
-                            + "/5 @ " + SystemClock.elapsedRealtime());
-                }
+
                 Log.i("GCM intent", "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+                sendNotification(message);
                 Log.i("GCM intent", "Received: " + extras.toString());
             }
         }
@@ -72,6 +87,13 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        try {
+            remote_picture = BitmapFactory.decodeStream(
+                    (InputStream) new URL("https://maps.googleapis.com/maps/api/streetview?size=600x300&location=" + Latitude + "," + Longitude + "&pitch=-0.76").getContent());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -79,16 +101,32 @@ public class GcmIntentService extends IntentService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_place_white_24dp)
-                        .setContentTitle("John's Location")
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
+                        .setLargeIcon(remote_picture)
+                        .setAutoCancel(true)
+                        .setContentTitle(From + "'s location")
+                        .setStyle(new NotificationCompat.BigPictureStyle()
+                                .setSummaryText(msg).setBigContentTitle(From + "'s location").bigPicture(remote_picture))
                         .setContentText(msg)
-                        .setPriority(4)
+                        .setPriority(3)
                         .setLights(Color.parseColor("#D50000"), 1000, 3000)
                         .setColor(Color.parseColor("#F44336"))
-                        .setSound(uri);
+                        .setSound(uri)
+                        .setDefaults(Notification.DEFAULT_ALL);
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
+
+    private void renderLoadedData(String stringNotification) {
+
+        try {
+            JSONObject response = new JSONObject(stringNotification);
+            From = response.getString("from");
+            Longitude = response.getString("longitude");
+            Latitude = response.getString("latitude");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
