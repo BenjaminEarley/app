@@ -128,9 +128,6 @@ public class RegisterActivity extends Activity
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
-        } else {
-            // username / password doesn't match
-            alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Username/Password is incorrect", false);
         }
     }
 
