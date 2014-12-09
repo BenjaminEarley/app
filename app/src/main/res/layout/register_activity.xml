@@ -14,7 +14,7 @@
         android:layout_marginBottom="5dip"/>
 
     <!-- Email input text -->
-    <EditText android:id="@+id/txtUsername"
+    <EditText android:id="@+id/txtRegisterUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"/>
@@ -27,7 +27,22 @@
         android:layout_marginBottom="5dip"/>
 
     <!-- Password input text -->
-    <EditText android:id="@+id/txtPassword"
+    <EditText android:id="@+id/txtRegisterPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:password="true"
+        android:singleLine="true"/>
+
+    <!-- Password Label -->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Password"
+        android:layout_marginBottom="5dip"/>
+
+    <!-- Password input text -->
+    <EditText android:id="@+id/txtRegisterPassword2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dip"
@@ -35,36 +50,9 @@
         android:singleLine="true"/>
 
     <!-- Login button -->
-    <Button android:id="@+id/btnLogin"
+    <Button android:id="@+id/btnRegister"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Login"/>
-
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Don&apos;t Have An Account? CLick Here"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="10dp"
-        android:clickable="true"
-        />-->
-    <view xmlns:android="http://schemas.android.com/apk/res/android"
-        class="me.gostalk.stalkme.LinedEditText"
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:background="@android:color/transparent"
-        android:padding="5dp"
-        android:scrollbars="vertical"
-        android:fadingEdge="vertical"
-        android:gravity="top"
-
-        android:editable="false"
-        android:text="Don&apos;t Have An Account? CLick Here"
-        android:capitalize="sentences" />
-
+        android:text="Register"/>
 
 </LinearLayout>
